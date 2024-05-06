@@ -1,5 +1,6 @@
 import "@/styles/globals.css";
 
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { Inter } from "next/font/google";
 
 const inter = Inter({
@@ -20,7 +21,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>{children}</body>
+      <head>
+        <ColorSchemeScript />
+      </head>
+      <body className={`font-sans ${inter.variable}`}>
+        <MantineProvider>{children}</MantineProvider>
+      </body>
     </html>
   );
 }
