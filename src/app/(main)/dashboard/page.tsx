@@ -1,3 +1,9 @@
+import StatusStats from "./_components/StatusStats";
+
 export default function DashboardPage() {
-  return <div></div>;
+  return (
+    <div>
+      <StatusStats />
+    </div>
+  );
 }
