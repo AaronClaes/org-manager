@@ -5,7 +5,7 @@ import ServerStatus from "./ServerStatus";
 export default function StatusStats() {
   return (
     <div>
-      <div className="flex gap-6">
+      <div className="flex gap-2">
         <RecentErrors />
         <Activity />
         <ServerStatus />

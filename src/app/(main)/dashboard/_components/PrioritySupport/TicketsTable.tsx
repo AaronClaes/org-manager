@@ -169,14 +169,8 @@ export function TicketsTable() {
   ));
 
   return (
-    <ScrollArea className="rounded-md border">
-      <Table
-        className="rounded-md"
-        striped
-        horizontalSpacing="md"
-        verticalSpacing="xs"
-        layout="fixed"
-      >
+    <ScrollArea className="rounded-lg border">
+      <Table striped horizontalSpacing="md" verticalSpacing="xs" layout="fixed">
         <Table.Thead>
           <Table.Tr>
             <Th

@@ -3,13 +3,7 @@ import Message from "./Message";
 
 export default function SupportMessages() {
   return (
-    <Card
-      className="w-full flex-[1]"
-      shadow="sm"
-      padding="lg"
-      radius="md"
-      withBorder
-    >
+    <Card className="w-full flex-[1]" padding="lg" radius="md" withBorder>
       <Text mb="xs" size="sm" c="dimmed">
         4 unread messages
       </Text>
