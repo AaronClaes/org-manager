@@ -1,6 +1,6 @@
 import { AreaChart } from "@mantine/charts";
 import { Card, Group, Text } from "@mantine/core";
-import { IconActivity } from "@tabler/icons-react";
+import { IconEye } from "@tabler/icons-react";
 
 export const data = [
   { name: "Basic", value: 13, color: "blue.6" },
@@ -12,13 +12,13 @@ export default function TotalPageViews() {
   return (
     <Card className="w-full" shadow="sm" padding="lg" radius="md" withBorder>
       <Group mb="md" gap={8}>
-        <IconActivity size={18} />
+        <IconEye size={18} />
         <Text size="lg" fw={500}>
           Total page views
         </Text>
       </Group>
       <AreaChart
-        h={180}
+        h={120}
         tickLine="none"
         withYAxis={false}
         tooltipAnimationDuration={100}
@@ -45,7 +45,7 @@ export default function TotalPageViews() {
           },
         ]}
         dataKey="date"
-        series={[{ name: "client", color: "blue.5", label: "Client errors" }]}
+        series={[{ name: "client", color: "blue.5", label: "Page views" }]}
         curveType="monotone"
       />
     </Card>

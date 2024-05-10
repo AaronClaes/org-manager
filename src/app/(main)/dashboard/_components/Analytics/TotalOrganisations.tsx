@@ -1,6 +1,6 @@
 import { AreaChart } from "@mantine/charts";
 import { Card, Group, Text } from "@mantine/core";
-import { IconActivity } from "@tabler/icons-react";
+import { IconBuilding } from "@tabler/icons-react";
 
 export const data = [
   { name: "Basic", value: 13, color: "blue.6" },
@@ -12,13 +12,13 @@ export default function TotalOrganisations() {
   return (
     <Card className="w-full" shadow="sm" padding="lg" radius="md" withBorder>
       <Group mb="md" gap={8}>
-        <IconActivity size={18} />
+        <IconBuilding size={18} />
         <Text size="lg" fw={500}>
           Total organisations
         </Text>
       </Group>
       <AreaChart
-        h={180}
+        h={120}
         tickLine="none"
         withYAxis={false}
         tooltipAnimationDuration={100}
@@ -46,7 +46,7 @@ export default function TotalOrganisations() {
         ]}
         dataKey="date"
         series={[
-          { name: "organisations", color: "green.5", label: "Client errors" },
+          { name: "organisations", color: "green.5", label: "Organisations" },
         ]}
         curveType="monotone"
       />
