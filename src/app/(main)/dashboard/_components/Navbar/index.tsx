@@ -1,3 +1,4 @@
+"use client";
 import {
   Avatar,
   Divider,
@@ -6,7 +7,6 @@ import {
   MenuDropdown,
   MenuItem,
   MenuTarget,
-  NavLink,
   Stack,
   Text,
 } from "@mantine/core";
@@ -22,7 +22,7 @@ import {
   IconUser,
   IconUsers,
 } from "@tabler/icons-react";
-import Link from "next/link";
+import NavItem from "./NavItem";
 
 const NAVITEMS = [
   {
@@ -33,17 +33,17 @@ const NAVITEMS = [
   {
     label: "Organisations",
     icon: IconBuilding,
-    href: "/dashboard/organisations/",
+    href: "/dashboard/organisations",
   },
   {
     label: "Feature flags",
     icon: IconPennant,
-    href: "/dashboard/feature-flags/",
+    href: "/dashboard/feature-flags",
   },
   {
     label: "Support",
     icon: IconHelp,
-    href: "/dashboard/support/",
+    href: "/dashboard/support",
   },
 ];
 
@@ -55,32 +55,22 @@ export default function Navbar() {
       </div>
       <nav className="mt-6 flex flex-col gap-2 p-4">
         {NAVITEMS.map((navItem) => {
-          return (
-            <NavLink
-              component={Link}
-              key={navItem.label}
-              className="rounded-md"
-              label={navItem.label}
-              leftSection={<navItem.icon size={16} />}
-              href={navItem.href}
-              active={navItem.href === "/dashboard"}
-            />
-          );
+          return <NavItem key={navItem.label} item={navItem} />;
         })}
         <Divider my="sm" />
-        <NavLink
-          component={Link}
-          className="rounded-md"
-          label="Analytics"
-          leftSection={<IconChartBar size={16} />}
-          href="/dashboard/analytics"
+        <NavItem
+          item={{
+            href: "/dashboard/analytics",
+            icon: IconChartBar,
+            label: "Analytics",
+          }}
         />
-        <NavLink
-          component={Link}
-          className="rounded-md"
-          label="Users"
-          leftSection={<IconUsers size={16} />}
-          href="/dashboard/users"
+        <NavItem
+          item={{
+            href: "/dashboard/users",
+            icon: IconUsers,
+            label: "Users",
+          }}
         />
       </nav>
       <Menu shadow="md" position="right-end">

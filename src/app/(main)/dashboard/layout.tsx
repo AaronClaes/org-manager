@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <Navbar />
       <div className="flex w-full flex-col">
         <Topbar />
-        <ScrollArea type="auto" className="h-full p-4">
+        <ScrollArea type="auto" className="h-full max-w-[1600px] p-4">
           {children}
         </ScrollArea>
       </div>
