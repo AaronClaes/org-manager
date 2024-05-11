@@ -9,24 +9,28 @@ import { usePathname } from "next/navigation";
 import { type ForwardRefExoticComponent, type RefAttributes } from "react";
 
 type NavItemProps = {
-  item: {
-    label: string;
-    href: string;
-    icon: ForwardRefExoticComponent<
-      Omit<IconProps, "ref"> & RefAttributes<Icon>
-    >;
-  };
+  label: string;
+  href: string;
+  icon: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>;
+  compare: "exact" | "includes";
 };
 
-export default function NavItem({ item }: NavItemProps) {
+export default function NavItem({
+  label,
+  href,
+  compare,
+  ...props
+}: NavItemProps) {
   const sidebarOpen = useDashboardStore((state) => state.sidebarOpen);
   const pathname = usePathname();
 
-  const isActive = pathname === item.href;
+  const isActive =
+    compare === "exact" ? pathname === href : pathname.includes(href);
+
   return (
-    <Tooltip label={item.label} disabled={sidebarOpen} position="right">
+    <Tooltip label={label} disabled={sidebarOpen} position="right">
       <UnstyledButton
-        href={item.href}
+        href={href}
         component={Link}
         className={cn(
           "flex items-center gap-4 rounded-md  hover:bg-[var(--mantine-color-gray-1)]",
@@ -35,8 +39,8 @@ export default function NavItem({ item }: NavItemProps) {
           sidebarOpen ? "px-4 py-2" : "aspect-square justify-center",
         )}
       >
-        <item.icon size={18} />
-        {sidebarOpen && item.label}
+        <props.icon size={18} />
+        {sidebarOpen && label}
       </UnstyledButton>
     </Tooltip>
   );

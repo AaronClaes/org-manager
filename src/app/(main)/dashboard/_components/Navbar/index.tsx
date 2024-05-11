@@ -31,23 +31,27 @@ const NAVITEMS = [
     label: "Dashboard",
     icon: IconHome,
     href: "/dashboard",
+    compare: "exact",
   },
   {
     label: "Organisations",
     icon: IconBuilding,
     href: "/dashboard/organisations",
+    compare: "includes",
   },
   {
     label: "Feature flags",
     icon: IconPennant,
     href: "/dashboard/feature-flags",
+    compare: "exact",
   },
   {
     label: "Support",
     icon: IconHelp,
     href: "/dashboard/support",
+    compare: "exact",
   },
-];
+] as const;
 
 export default function Navbar() {
   const sidebarOpen = useDashboardStore((state) => state.sidebarOpen);
@@ -55,30 +59,36 @@ export default function Navbar() {
     <div
       className={cn(
         "flex h-screen flex-col border-r",
-        sidebarOpen ? "min-w-72 max-w-72" : "min-w-16 max-w-16",
+        sidebarOpen ? "min-w-64 max-w-64" : "min-w-16 max-w-16",
       )}
     >
       <div className="flex min-h-16 items-center justify-center border-b">
         LOGO
       </div>
       <nav className="mt-6 flex flex-col gap-2 p-3">
-        {NAVITEMS.map((navItem) => {
-          return <NavItem key={navItem.label} item={navItem} />;
+        {NAVITEMS.map(({ label, href, icon, compare }) => {
+          return (
+            <NavItem
+              key={label}
+              label={label}
+              href={href}
+              icon={icon}
+              compare={compare}
+            />
+          );
         })}
         <Divider my="sm" />
         <NavItem
-          item={{
-            href: "/dashboard/analytics",
-            icon: IconChartBar,
-            label: "Analytics",
-          }}
+          href="/dashboard/analytics"
+          icon={IconChartBar}
+          label="Analytics"
+          compare="exact"
         />
         <NavItem
-          item={{
-            href: "/dashboard/users",
-            icon: IconUsers,
-            label: "Users",
-          }}
+          href={"/dashboard/users"}
+          icon={IconUsers}
+          label={"Users"}
+          compare="includes"
         />
       </nav>
       <Menu shadow="md" position="right-end">
