@@ -3,23 +3,22 @@ import { useMemo, useState } from "react";
 import {
   Avatar,
   Combobox,
-  Divider,
   Group,
   Input,
   InputBase,
   Text,
-  Title,
   useCombobox,
 } from "@mantine/core";
 import { type Organisation, organisations } from "../../organisations";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 export function OrganisationSwitcher() {
   const router = useRouter();
-  const { id: organisationId } = useParams<{ id: string }>();
+  const currentPath = usePathname();
+  const { id: orgId } = useParams<{ id: string }>();
 
   const [search, setSearch] = useState<string>("");
-  const [id, setId] = useState<string | null>(organisationId);
+  const [id, setId] = useState<string | null>(orgId);
   const selectedOption = organisations.find((item) => item.id === id);
 
   const combobox = useCombobox({
@@ -40,51 +39,44 @@ export function OrganisationSwitcher() {
   }, [search]);
 
   return (
-    <>
-      <Group justify="space-between">
-        <Title order={2} fw={700}>
-          Overview
-        </Title>
-        <Combobox
-          store={combobox}
-          withinPortal={false}
-          onOptionSubmit={(id) => {
-            setId(id);
-            combobox.closeDropdown();
-            router.push(`/dashboard/organisations/${id}`);
-          }}
+    <Combobox
+      store={combobox}
+      withinPortal={false}
+      onOptionSubmit={(id) => {
+        setId(id);
+        combobox.closeDropdown();
+        const newPath = currentPath.replace(orgId, id);
+        router.push(newPath);
+      }}
+    >
+      <Combobox.Target>
+        <InputBase
+          w={300}
+          component="button"
+          type="button"
+          pointer
+          rightSection={<Combobox.Chevron />}
+          onClick={() => combobox.toggleDropdown()}
+          rightSectionPointerEvents="none"
+          multiline
         >
-          <Combobox.Target>
-            <InputBase
-              w={300}
-              component="button"
-              type="button"
-              pointer
-              rightSection={<Combobox.Chevron />}
-              onClick={() => combobox.toggleDropdown()}
-              rightSectionPointerEvents="none"
-              multiline
-            >
-              {selectedOption ? (
-                <SelectOption {...selectedOption} />
-              ) : (
-                <Input.Placeholder>Pick value</Input.Placeholder>
-              )}
-            </InputBase>
-          </Combobox.Target>
+          {selectedOption ? (
+            <SelectOption {...selectedOption} />
+          ) : (
+            <Input.Placeholder>Pick value</Input.Placeholder>
+          )}
+        </InputBase>
+      </Combobox.Target>
 
-          <Combobox.Dropdown>
-            <Combobox.Search
-              value={search}
-              onChange={(event) => setSearch(event.currentTarget.value)}
-              placeholder="Search organisations"
-            />
-            <Combobox.Options>{options}</Combobox.Options>
-          </Combobox.Dropdown>
-        </Combobox>
-      </Group>
-      <Divider my="md" />
-    </>
+      <Combobox.Dropdown>
+        <Combobox.Search
+          value={search}
+          onChange={(event) => setSearch(event.currentTarget.value)}
+          placeholder="Search organisations"
+        />
+        <Combobox.Options>{options}</Combobox.Options>
+      </Combobox.Dropdown>
+    </Combobox>
   );
 }
 
