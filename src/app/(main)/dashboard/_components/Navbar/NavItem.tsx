@@ -1,6 +1,8 @@
 "use client";
 
-import { NavLink } from "@mantine/core";
+import { useDashboardStore } from "@/stores/dashboardStore";
+import { cn } from "@/utils/tailwind";
+import { Tooltip, UnstyledButton } from "@mantine/core";
 import { type Icon, type IconProps } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -17,16 +19,25 @@ type NavItemProps = {
 };
 
 export default function NavItem({ item }: NavItemProps) {
+  const sidebarOpen = useDashboardStore((state) => state.sidebarOpen);
   const pathname = usePathname();
 
+  const isActive = pathname === item.href;
   return (
-    <NavLink
-      component={Link}
-      className="rounded-md"
-      label={item.label}
-      leftSection={<item.icon size={16} />}
-      href={item.href}
-      active={pathname === item.href}
-    />
+    <Tooltip label={item.label} disabled={sidebarOpen} position="right">
+      <UnstyledButton
+        href={item.href}
+        component={Link}
+        className={cn(
+          "flex items-center gap-4 rounded-md  hover:bg-[var(--mantine-color-gray-1)]",
+          isActive &&
+            "bg-[var(--mantine-color-blue-0)] text-[var(--mantine-color-blue-7)] hover:bg-[var(--mantine-color-blue-0)]",
+          sidebarOpen ? "px-4 py-2" : "aspect-square justify-center",
+        )}
+      >
+        <item.icon size={18} />
+        {sidebarOpen && item.label}
+      </UnstyledButton>
+    </Tooltip>
   );
 }

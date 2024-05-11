@@ -23,6 +23,8 @@ import {
   IconUsers,
 } from "@tabler/icons-react";
 import NavItem from "./NavItem";
+import { useDashboardStore } from "@/stores/dashboardStore";
+import { cn } from "@/utils/tailwind";
 
 const NAVITEMS = [
   {
@@ -48,12 +50,18 @@ const NAVITEMS = [
 ];
 
 export default function Navbar() {
+  const sidebarOpen = useDashboardStore((state) => state.sidebarOpen);
   return (
-    <div className="flex h-screen min-w-72 flex-col border-r">
+    <div
+      className={cn(
+        "flex h-screen flex-col border-r",
+        sidebarOpen ? "min-w-72 max-w-72" : "min-w-16 max-w-16",
+      )}
+    >
       <div className="flex min-h-16 items-center justify-center border-b">
         LOGO
       </div>
-      <nav className="mt-6 flex flex-col gap-2 p-4">
+      <nav className="mt-6 flex flex-col gap-2 p-3">
         {NAVITEMS.map((navItem) => {
           return <NavItem key={navItem.label} item={navItem} />;
         })}
@@ -75,18 +83,32 @@ export default function Navbar() {
       </nav>
       <Menu shadow="md" position="right-end">
         <MenuTarget>
-          <div className="mt-auto cursor-pointer border-t p-4 transition hover:bg-[--mantine-color-gray-1]">
+          <div
+            className={cn(
+              "mt-auto cursor-pointer border-t transition hover:bg-[--mantine-color-gray-1]",
+              sidebarOpen
+                ? "p-4"
+                : "flex aspect-square items-center justify-center",
+            )}
+          >
             <div className="flex w-full items-center justify-between">
-              <div className="flex gap-4">
+              <div
+                className={cn(
+                  "flex items-center justify-center gap-4",
+                  !sidebarOpen && "w-full",
+                )}
+              >
                 <Avatar radius="xl">AA</Avatar>
-                <Stack gap={0}>
-                  <Text size="sm">Aaron Claes</Text>
-                  <Text size="xs" c="dimmed">
-                    Admin
-                  </Text>
-                </Stack>
+                {sidebarOpen && (
+                  <Stack gap={0}>
+                    <Text size="sm">Aaron Claes</Text>
+                    <Text size="xs" c="dimmed">
+                      Admin
+                    </Text>
+                  </Stack>
+                )}
               </div>
-              <IconChevronDown size={16} />
+              {sidebarOpen && <IconChevronDown size={16} />}
             </div>
           </div>
         </MenuTarget>

@@ -1,18 +1,22 @@
 import { ActionIcon, Group, TextInput } from "@mantine/core";
 import { IconExchange, IconSearch } from "@tabler/icons-react";
 import NotificationsBox from "./NotificationsBox";
+import SidebarToggle from "./SidebarToggle";
 
 export default function Topbar() {
   return (
     <div className="flex min-h-16 w-full items-center justify-between gap-1 border-b px-3">
-      <TextInput
-        rightSectionWidth={57}
-        leftSection={<IconSearch size={16} />}
-        leftSectionPointerEvents="none"
-        placeholder="Search"
-        type="search"
-      />
-      <div className="flex items-center gap-2">
+      <Group gap="sm">
+        <SidebarToggle />
+        <TextInput
+          rightSectionWidth={57}
+          leftSection={<IconSearch size={16} />}
+          leftSectionPointerEvents="none"
+          placeholder="Search"
+          type="search"
+        />
+      </Group>
+      <Group>
         <Group gap="xs">
           <ActionIcon
             size="lg"
@@ -24,7 +28,7 @@ export default function Topbar() {
           </ActionIcon>
           <NotificationsBox />
         </Group>
-      </div>
+      </Group>
     </div>
   );
 }
