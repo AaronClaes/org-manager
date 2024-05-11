@@ -5,7 +5,6 @@ import {
   Card,
   CardSection,
   Group,
-  Indicator,
   Menu,
   MenuDropdown,
   MenuItem,
@@ -15,11 +14,11 @@ import {
   Text,
 } from "@mantine/core";
 import {
+  IconBuilding,
   IconChartBar,
   IconDotsVertical,
   IconExternalLink,
   IconForbid,
-  IconHelp,
   IconLayout,
   IconPencil,
 } from "@tabler/icons-react";
@@ -47,16 +46,12 @@ export default function OrganisationCard({
             <Text fw={500}>{organisation.name}</Text>
           </Group>
           <Group gap="xs">
-            <ActionIcon variant="subtle" color="gray">
-              <IconExternalLink size={16} />
-            </ActionIcon>
             <Menu withinPortal position="bottom-end" shadow="sm">
               <MenuTarget>
                 <ActionIcon variant="subtle" color="gray">
                   <IconDotsVertical size={16} />
                 </ActionIcon>
               </MenuTarget>
-
               <MenuDropdown>
                 <MenuItem leftSection={<IconPencil size={14} />}>Edit</MenuItem>
                 <MenuItem leftSection={<IconChartBar size={14} />}>
@@ -90,23 +85,14 @@ export default function OrganisationCard({
         </Stack>
       </CardSection>
       <CardSection withBorder inheritPadding py="md">
-        <Group>
-          <Indicator
+        <Group gap="xs">
+          <Button
             className="flex-1"
-            size={24}
-            offset={6}
-            color="red"
-            withBorder
-            label="1"
+            leftSection={<IconBuilding size={16} />}
+            variant="light"
           >
-            <Button
-              className="w-full"
-              leftSection={<IconHelp size={16} />}
-              variant="light"
-            >
-              Tickets
-            </Button>
-          </Indicator>
+            Overview
+          </Button>
           <Button leftSection={<IconLayout size={16} />} className="flex-1">
             Dashboard
           </Button>
