@@ -17,21 +17,15 @@ import {
   IconBuilding,
   IconChartBar,
   IconDotsVertical,
-  IconExternalLink,
   IconForbid,
   IconLayout,
   IconPencil,
 } from "@tabler/icons-react";
+import Link from "next/link";
+import { type Organisation } from "../organisations";
 
 type OrganisationCardProps = {
-  organisation: {
-    name: string;
-    owner: {
-      name: string;
-    };
-    memberCount: number;
-    plan: "BASIC" | "PRO" | "ENTERPRISE";
-  };
+  organisation: Organisation;
 };
 
 export default function OrganisationCard({
@@ -87,9 +81,11 @@ export default function OrganisationCard({
       <CardSection withBorder inheritPadding py="md">
         <Group gap="xs">
           <Button
+            href={`/dashboard/organisations/${organisation.id}`}
             className="flex-1"
             leftSection={<IconBuilding size={16} />}
             variant="light"
+            component={Link}
           >
             Overview
           </Button>

@@ -13,17 +13,7 @@ import {
 } from "@mantine/core";
 import OrganisationCard from "./_components/OrganisationCard";
 import { IconArrowDown, IconArrowUp, IconBuilding } from "@tabler/icons-react";
-
-const organisations = [
-  {
-    name: "Organisation 1",
-    owner: {
-      name: "Aaron Claes",
-    },
-    memberCount: 24,
-    plan: "PRO",
-  },
-] as const;
+import { organisations } from "./organisations";
 
 export default function OrganisationsPage() {
   return (
